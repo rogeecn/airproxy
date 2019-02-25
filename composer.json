@@ -1,0 +1,27 @@
+{
+    "name": "rogeecn/airproxy",
+    "description": "air proxy",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "5.*"
+    },
+    "author": {
+        "name": "Rogee ",
+        "email": "rogeecn@gmail.com"
+    },
+    "autoload": {
+        "psr-4": {
+            "rogeecn\\airproxy\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "rogeecn\\airproxy\\AirproxyServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
