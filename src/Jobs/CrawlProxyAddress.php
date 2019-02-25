@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use rogeecn\airproxy\Classes\ProxyAddress;
 use rogeecn\airproxy\Contracts\IConnection;
@@ -34,9 +35,11 @@ class CrawlProxyAddress implements ShouldQueue
         /** @var IConnection $connection */
         $connection = new $this->by($this->page);
 
+        $queue = Config::get("airproxy.queue.check");
         /** @var ProxyAddress $address */
         foreach ($connection->addresses() as $address) {
             Log::info("pending check proxy address: {$address->toString()}");
+            dispatch(new Check($address))->onQueue($queue);
         }
     }
 }

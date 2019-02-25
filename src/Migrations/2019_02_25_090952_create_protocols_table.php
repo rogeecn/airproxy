@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProxiesTable extends Migration
+class CreateProtocolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateProxiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('proxies', function (Blueprint $table) {
+        Schema::create('protocols', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("ip");
-            $table->integer("port");
-            $table->integer("speed_connection");
-            $table->integer("speed_download");
-            $table->integer("incognito");
-            $table->timestamp("verify_at");
+            $table->integer("proxy_id");
+            $table->boolean("http")->default(false);
+            $table->boolean("https")->default(false);
+            $table->boolean("socks4")->default(false);
+            $table->boolean("socks5")->default(false);
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateProxiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proxies');
+        Schema::dropIfExists('protocols');
     }
 }

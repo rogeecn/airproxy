@@ -48,13 +48,11 @@ class FreeProxyCZ implements IConnection
         pq("#proxy_list tbody tr")->each(function ($item) use (&$addresses) {
             $rawIP = pq($item)->find('td:eq(0)')->text();
             $rawPort = pq($item)->find('td:eq(1)')->text();
-            $rawProtocol = pq($item)->find('td:eq(2)')->text();
 
             $ip = base64_decode(Str::substr($rawIP, strlen('document.write(Base64.decode("'), -strlen('"))"')));
             $port = intval($rawPort);
-            $protocol = Arr::get(Protocols::$mapToId, strtolower($rawProtocol), '');
 
-            $address = new ProxyAddress($ip, $port, $protocol);
+            $address = new ProxyAddress($ip, $port);
             if ($address->isValid()) {
                 $addresses[] = $address;
             }

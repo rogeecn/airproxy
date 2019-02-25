@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Config;
 use rogeecn\airproxy\Contracts\IAdapter;
 use rogeecn\airproxy\Jobs\CrawlProxyAddress;
 
-class Spider extends Command
+class Dispatch extends Command
 {
     protected $signature = 'airproxy:dispatch';
 
@@ -46,9 +46,10 @@ class Spider extends Command
                 return;
             }
 
+            $queue = Config::get("airproxy.queue.address");
             foreach ($pages as $pageURL) {
                 $this->info($this->message($connection, "push {$pageURL} to crawl address task list"));
-                dispatch(new CrawlProxyAddress($connection['connection'], $pageURL));
+                dispatch(new CrawlProxyAddress($connection['connection'], $pageURL))->onQueue($queue);
             }
         }
     }

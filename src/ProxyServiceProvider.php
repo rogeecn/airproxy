@@ -22,7 +22,7 @@ class ProxyServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \rogeecn\airproxy\Commands\Spider::class,
+                \rogeecn\airproxy\Commands\Dispatch::class,
             ]);
         }
     }

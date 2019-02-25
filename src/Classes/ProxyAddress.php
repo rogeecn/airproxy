@@ -3,30 +3,25 @@
 namespace rogeecn\airproxy\Classes;
 
 
-use rogeecn\airproxy\Consts\Protocols;
-use rogeecn\airproxy\Contracts\IProtocol;
 use rogeecn\airproxy\Contracts\IProxyAddress;
 
 class ProxyAddress implements IProxyAddress
 {
     private $ip;
     private $port;
-    private $protocol;
 
-    public function __construct($ip, $port, $protocol)
+    public function __construct($ip, $port)
     {
         $this->ip = $ip;
         $this->port = $port;
-        $this->protocol = $protocol;
     }
 
     public function isValid(): bool
     {
         $validIP = strlen($this->ip) > 0;
         $validPort = $this->port > 0;
-        $validProtocol = in_array($this->protocol, array_keys(Protocols::$mapToString));
 
-        return $validIP && $validPort && $validProtocol;
+        return $validIP && $validPort;
     }
 
     public function ip()
@@ -40,13 +35,8 @@ class ProxyAddress implements IProxyAddress
     }
 
 
-    public function protocol(): IProtocol
-    {
-        return new Protocol($this->protocol);
-    }
-
     public function toString()
     {
-        return sprintf("%s://%s:%s", $this->protocol()->toString(), $this->ip(), $this->port());
+        return sprintf("%s:%s", $this->ip(), $this->port());
     }
 }

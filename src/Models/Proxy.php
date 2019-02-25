@@ -24,9 +24,14 @@ class Proxy extends Model implements IProxyItem
         return $this->hasOne(Location::class);
     }
 
+    public function protocol()
+    {
+        return $this->hasOne(Protocol::class);
+    }
+
     public function address(): IProxyAddress
     {
-        return new ProxyAddress($this->ip, $this->port, $this->protocol);
+        return new ProxyAddress($this->ip, $this->port);
     }
 
     public function incognito(): IIncognito
@@ -43,4 +48,5 @@ class Proxy extends Model implements IProxyItem
     {
         return new Speed($this->speed_connection, $this->speed_download);
     }
+
 }
