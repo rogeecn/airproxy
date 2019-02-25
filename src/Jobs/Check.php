@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
 use rogeecn\airproxy\Contracts\IProxyAddress;
+use rogeecn\airproxy\Models\Proxy;
 
 class Check implements ShouldQueue
 {
@@ -36,7 +37,7 @@ class Check implements ShouldQueue
             'sock4' => false,
         ];
 
-        dd($support);
+        Proxy::addOrUpdate($this->address, $support);
     }
 
     private function supportHTTP()

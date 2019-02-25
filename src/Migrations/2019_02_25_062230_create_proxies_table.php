@@ -17,9 +17,9 @@ class CreateProxiesTable extends Migration
             $table->increments('id');
             $table->string("ip");
             $table->integer("port");
-            $table->integer("speed_connection");
-            $table->integer("speed_download");
-            $table->integer("incognito");
+            $table->integer("speed_connection")->default(0);
+            $table->integer("speed_download")->default(0);
+            $table->integer("incognito")->default(0);
             $table->timestamp("verify_at");
             $table->timestamps();
         });
