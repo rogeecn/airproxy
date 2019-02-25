@@ -1,15 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rogee
- * Date: 2019-02-25
- * Time: 14:12
- */
 
 namespace rogeecn\airproxy\Contracts;
 
 
-class ILocation
-{
+use Illuminate\Contracts\Support\Arrayable;
 
+interface ILocation extends Arrayable
+{
+    public function toString();
 }

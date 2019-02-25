@@ -2,9 +2,7 @@
 
 namespace rogeecn\airproxy\Contracts;
 
-use Carbon\Carbon;
-
-interface IProxyItem
+interface IProxyAddress
 {
     public function ip();
 
@@ -12,11 +10,7 @@ interface IProxyItem
 
     public function protocol(): IProtocol;
 
-    public function address(): IProxyAddress;
+    public function toString();
 
-    public function incognito(): IIncognito;
-
-    public function verifyAt(): Carbon;
-
-    public function speed(): ISpeed;
+    public function isValid(): bool;
 }

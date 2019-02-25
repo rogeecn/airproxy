@@ -3,9 +3,12 @@
 namespace rogeecn\airproxy\Contracts;
 
 
-use Illuminate\Contracts\Support\Arrayable;
-
-interface ILocation extends Arrayable
+interface IIncognito
 {
-    public function toString();
+    public function isTransparent(): bool;
+
+    public function isIncognitoNormal(): bool;
+
+    public function isIncognitoHigh(): bool;
 }
+

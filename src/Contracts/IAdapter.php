@@ -2,6 +2,7 @@
 
 namespace rogeecn\airproxy\Contracts;
 
-interface IConnection
+interface IAdapter
 {
+    public function generate(): array;
 }

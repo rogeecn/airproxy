@@ -5,7 +5,7 @@ namespace rogeecn\airproxy;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class AirproxyServiceProvider extends ServiceProvider
+class ProxyServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -22,7 +22,7 @@ class AirproxyServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \rogeecn\airproxy\Commands\AirproxyCommand::class,
+                \rogeecn\airproxy\Commands\Spider::class,
             ]);
         }
     }

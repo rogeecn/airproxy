@@ -2,12 +2,9 @@
 
 namespace rogeecn\airproxy\Contracts;
 
-interface IProxyCrawler
+interface IConnection
 {
-    public function connection();
+    public function init();
 
-    public function setConnection()
-    {
-        
-    }
+    public function addresses(): array;
 }

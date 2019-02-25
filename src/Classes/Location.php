@@ -1,9 +1,11 @@
 <?php
 
-namespace rogeecn\airproxy\Contracts;
+namespace rogeecn\airproxy\Classes;
 
 
-class Location
+use rogeecn\airproxy\Contracts\ILocation;
+
+class Location implements ILocation
 {
     private $country;
     private $province;
@@ -18,9 +20,19 @@ class Location
         $this->city = $city;
     }
 
-    public function __toString()
+    public function toString()
     {
         return sprintf("%s/%s/%s/%s", $this->country, $this->province, $this->city, $this->area);
+    }
+
+    public function toArray()
+    {
+        return [
+            'country'  => $this->country,
+            'province' => $this->province,
+            'city'     => $this->city,
+            'area'     => $this->area,
+        ];
     }
 
 }

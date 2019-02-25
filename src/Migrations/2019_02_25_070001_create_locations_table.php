@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateLocationsTable extends Migration
 {
@@ -15,6 +15,11 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('proxy_id');
+            $table->string('country');
+            $table->string('province');
+            $table->string('city');
+            $table->string('area');
             $table->timestamps();
         });
     }

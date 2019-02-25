@@ -3,12 +3,9 @@
 namespace rogeecn\airproxy\Contracts;
 
 
-interface IIncognito
+interface ISpeed
 {
-    public function isTransparent(): bool;
+    public function connection();
 
-    public function isIncognitoNormal(): bool;
-
-    public function isIncognitoHigh(): bool;
+    public function download();
 }
-

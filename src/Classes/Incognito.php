@@ -1,14 +1,13 @@
 <?php
 
-namespace rogeecn\airproxy\Contracts;
+namespace rogeecn\airproxy\Classes;
 
 
-class Incognito
+use rogeecn\airproxy\Consts\Incognitos;
+use rogeecn\airproxy\Contracts\IIncognito;
+
+class Incognito implements IIncognito
 {
-    const LEVEL_TRANSPARENT      = 0;
-    const LEVEL_INCOGNITO_NORMAL = 1;
-    const LEVEL_INCOGNITO_HIGH   = 2;
-
     private $level;
 
     public function __construct($level)
@@ -16,18 +15,18 @@ class Incognito
         $this->level = $level;
     }
 
-    public function isTransparent()
+    public function isTransparent(): bool
     {
-        return $this->level == static::LEVEL_TRANSPARENT;
+        return $this->level == Incognitos::LEVEL_TRANSPARENT;
     }
 
-    public function isIncognitoNormal()
+    public function isIncognitoNormal(): bool
     {
-        return $this->level == static::LEVEL_INCOGNITO_NORMAL;
+        return $this->level == Incognitos::LEVEL_INCOGNITO_NORMAL;
     }
 
-    public function isIncognitoHigh()
+    public function isIncognitoHigh(): bool
     {
-        return $this->level == static::LEVEL_INCOGNITO_HIGH;
+        return $this->level == Incognitos::LEVEL_INCOGNITO_HIGH;
     }
 }

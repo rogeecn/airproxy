@@ -1,10 +1,25 @@
 <?php
+
 namespace rogeecn\airproxy\Consts;
 
 
-class Incognitos
+class Protocols
 {
-    const LEVEL_TRANSPARENT      = 0;
-    const LEVEL_INCOGNITO_NORMAL = 1;
-    const LEVEL_INCOGNITO_HIGH   = 2;
+    const HTTP  = 0;
+    const HTTPS = 1;
+    const SOCKS = 2;
+
+    public static $mapToString = [
+        self::HTTP  => 'HTTP',
+        self::HTTPS => 'HTTPS',
+        self::SOCKS => 'SOCKS',
+    ];
+
+    public static $mapToId = [
+        'http'   => self::HTTP,
+        'https'  => self::HTTPS,
+        'socks'  => self::SOCKS,
+        'socks5' => self::SOCKS,
+        'socks4' => self::SOCKS,
+    ];
 }

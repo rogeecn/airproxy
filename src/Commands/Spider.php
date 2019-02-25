@@ -3,40 +3,58 @@
 namespace rogeecn\airproxy\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
+use rogeecn\airproxy\Contracts\IAdapter;
+use rogeecn\airproxy\Jobs\CrawlProxyAddress;
 
-class AirproxyCommand extends Command
+class Spider extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'airproxy:run';
+    protected $signature = 'airproxy:dispatch';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Shows the airproxy package information';
+    protected $description = 'dispatch pending crawl pages';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-        $this->line('Package created using Bootpack.');
+        $this->line("spider running...");
+
+        $connections = Config::get("airproxy.connections");
+        dump($connections);
+
+        foreach ($connections as $connection) {
+            $this->info($this->message($connection, "{$connection['domain']} {$connection['description']}..."));
+
+            if (!$connection['enable']) {
+                $this->warn($connection, "connection is disabled");
+                continue;
+            }
+
+            $pages = [];
+            foreach ($connection['pages'] as $connectionPage) {
+                if (is_array($connectionPage)) {
+                    /** @var IAdapter $adapter */
+                    $adapter = new $connectionPage['adapter']($connectionPage);
+                    $pages = array_merge($pages, $adapter->generate());
+                    continue;
+                }
+
+                $pages[] = $connectionPage;
+            }
+
+            $pageCount = count($pages);
+            $this->info($this->message($connection, "$pageCount pages will be crawl"));
+            if ($pageCount == 0) {
+                return;
+            }
+
+            foreach ($pages as $pageURL) {
+                $this->info($this->message($connection, "push {$pageURL} to crawl address task list"));
+                dispatch(new CrawlProxyAddress($connection['connection'], $pageURL));
+            }
+        }
+    }
+
+    private function message($connection, $message)
+    {
+        return "[{$connection['domain']}] $message";
     }
 }

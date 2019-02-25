@@ -3,36 +3,21 @@
 namespace rogeecn\airproxy\Classes;
 
 
-use rogeecn\airproxy\Contracts\ILocation;
+use Illuminate\Support\Arr;
+use rogeecn\airproxy\Consts\Protocols;
+use rogeecn\airproxy\Contracts\IProtocol;
 
-class Location implements ILocation
+class Protocol implements IProtocol
 {
-    private $country;
-    private $province;
-    private $city;
-    private $area;
+    private $protocol;
 
-    public function __construct($country = null, $province = null, $city = null, $area = null)
+    public function __construct($protocol)
     {
-        $this->country = $country;
-        $this->province = $province;
-        $this->area = $area;
-        $this->city = $city;
+        $this->protocol = $protocol;
     }
 
     public function toString()
     {
-        return sprintf("%s/%s/%s/%s", $this->country, $this->province, $this->city, $this->area);
+        return Arr::get(Protocols::$mapToString, $this->protocol, "");
     }
-
-    public function toArray()
-    {
-        return [
-            'country'  => $this->country,
-            'province' => $this->province,
-            'city'     => $this->city,
-            'area'     => $this->area,
-        ];
-    }
-
 }

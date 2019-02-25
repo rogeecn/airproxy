@@ -3,26 +3,50 @@
 namespace rogeecn\airproxy\Classes;
 
 
-use rogeecn\airproxy\Contracts\ISpeed;
+use rogeecn\airproxy\Consts\Protocols;
+use rogeecn\airproxy\Contracts\IProtocol;
+use rogeecn\airproxy\Contracts\IProxyAddress;
 
-class Speed implements ISpeed
+class ProxyAddress implements IProxyAddress
 {
-    private $connection = 0;
-    private $download   = 0;
+    private $ip;
+    private $port;
+    private $protocol;
 
-    public function __construct($connection, $download = 0)
+    public function __construct($ip, $port, $protocol)
     {
-        $this->download = $download;
-        $this->connection = $connection;
+        $this->ip = $ip;
+        $this->port = $port;
+        $this->protocol = $protocol;
     }
 
-    public function connection()
+    public function isValid(): bool
     {
-        return $this->connection;
+        $validIP = strlen($this->ip) > 0;
+        $validPort = $this->port > 0;
+        $validProtocol = in_array($this->protocol, array_keys(Protocols::$mapToString));
+
+        return $validIP && $validPort && $validProtocol;
     }
 
-    public function download()
+    public function ip()
     {
-        return $this->download;
+        return $this->ip;
+    }
+
+    public function port()
+    {
+        return $this->port;
+    }
+
+
+    public function protocol(): IProtocol
+    {
+        return new Protocol($this->protocol);
+    }
+
+    public function toString()
+    {
+        return sprintf("%s://%s:%s", $this->protocol()->toString(), $this->ip(), $this->port());
     }
 }

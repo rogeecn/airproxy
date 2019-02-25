@@ -3,36 +3,26 @@
 namespace rogeecn\airproxy\Classes;
 
 
-use rogeecn\airproxy\Contracts\ILocation;
+use rogeecn\airproxy\Contracts\ISpeed;
 
-class Location implements ILocation
+class Speed implements ISpeed
 {
-    private $country;
-    private $province;
-    private $city;
-    private $area;
+    private $connection = 0;
+    private $download   = 0;
 
-    public function __construct($country = null, $province = null, $city = null, $area = null)
+    public function __construct($connection, $download = 0)
     {
-        $this->country = $country;
-        $this->province = $province;
-        $this->area = $area;
-        $this->city = $city;
+        $this->download = $download;
+        $this->connection = $connection;
     }
 
-    public function toString()
+    public function connection()
     {
-        return sprintf("%s/%s/%s/%s", $this->country, $this->province, $this->city, $this->area);
+        return $this->connection;
     }
 
-    public function toArray()
+    public function download()
     {
-        return [
-            'country'  => $this->country,
-            'province' => $this->province,
-            'city'     => $this->city,
-            'area'     => $this->area,
-        ];
+        return $this->download;
     }
-
 }
