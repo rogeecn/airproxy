@@ -4,10 +4,8 @@ namespace rogeecn\airproxy\Connections;
 
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use rogeecn\airproxy\Classes\ProxyAddress;
-use rogeecn\airproxy\Consts\Protocols;
 use rogeecn\airproxy\Contracts\IConnection;
 
 class FreeProxyCZ implements IConnection
@@ -27,10 +25,7 @@ class FreeProxyCZ implements IConnection
     {
         $this->client = new Client([
             'timeout' => 5.0,
-            'proxy'   => [
-                'http'  => 'http://proxy.lfk.360es.cn:3128',
-                'https' => 'https://proxy.lfk.360es.cn:3128',
-            ],
+            'proxy'   => 'http://proxy.lfk.360es.cn:3128',
             'headers' => [
                 'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36'
             ]

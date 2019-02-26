@@ -37,7 +37,8 @@ class CrawlProxyAddress implements ShouldQueue
 
         $queue = Config::get("airproxy.queue.check");
         /** @var ProxyAddress $address */
-        foreach ($connection->addresses() as $address) {
+        $addresses = $connection->addresses();
+        foreach ($addresses as $address) {
             Log::info("pending check proxy address: {$address->toString()}");
             dispatch(new Check($address))->onQueue($queue);
         }

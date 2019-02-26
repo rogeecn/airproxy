@@ -15,11 +15,7 @@ class Dispatch extends Command
 
     public function handle()
     {
-        $this->line("spider running...");
-
         $connections = Config::get("airproxy.connections");
-        dump($connections);
-
         foreach ($connections as $connection) {
             $this->info($this->message($connection, "{$connection['domain']} {$connection['description']}..."));
 
