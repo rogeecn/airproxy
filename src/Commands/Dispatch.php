@@ -35,6 +35,7 @@ class Dispatch extends Command
 
                 $pages[] = $connectionPage;
             }
+            $this->info('pages: ' . \GuzzleHttp\json_encode($pages));
 
             $pageCount = count($pages);
             $this->info($this->message($connection, "$pageCount pages will be crawl"));
