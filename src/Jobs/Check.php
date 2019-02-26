@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use rogeecn\airproxy\Contracts\IProxyAddress;
 use rogeecn\airproxy\Models\Proxy;
@@ -28,6 +29,7 @@ class Check implements ShouldQueue
 
     public function handle()
     {
+        Log::info("check proxy address: {$this->address->toString()}");
         $this->client = new Client(['timeout' => 10, 'verify' => false]);
 
         $support = [
@@ -36,6 +38,7 @@ class Check implements ShouldQueue
             'sock5' => false,
             'sock4' => false,
         ];
+        Log::info("check address({$this->address->toString()}) result: ", $support);
 
         Proxy::addOrUpdate($this->address, $support);
     }

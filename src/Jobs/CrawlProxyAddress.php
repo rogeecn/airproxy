@@ -39,7 +39,7 @@ class CrawlProxyAddress implements ShouldQueue
         /** @var ProxyAddress $address */
         $addresses = $connection->addresses();
         foreach ($addresses as $address) {
-            Log::info("pending check proxy address: {$address->toString()}");
+            Log::info("goto check proxy address: {$address->toString()}");
             dispatch(new Check($address))->onQueue($queue);
         }
     }
